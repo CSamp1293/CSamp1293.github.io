@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 1em;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .nav-center-label.welcome-message {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #d0e7ff;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      top: 65px; /* Positioned below logo */
+    }
+
+    .logout-form {
+      margin: 0 0 0 1em;
+    }
+
+    .link-button {
+      background-color: #004085;
+      color: white;
+      border: none;
+      padding: 0.4em 0.8em;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      font-size: 1em;
+      text-decoration: none;
+    }
+
+    .link-button:hover {
+      background-color: #002752;
+    }
+
+    .right-menu {
+      margin-left: auto;
+      display: flex;
+      gap: 1em;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .navbar-logo-link {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      z-index: 5;
+    }
+
+    .navbar-logo {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+
+    header h1 {
+      display: none; /* Hide text header since logo is shown */
+    }
+
+    @media (max-width: 768px) {
+      .nav-center-label.welcome-message {
+        font-size: 1em;
+        top: 60px;
+      }
+
+      .navbar-logo {
+        height: 45px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar-top">
+      <img src="/images/logo.png" alt="Flight Booking System Logo" class="navbar-logo">
+      <% if (user) { %>
+        <div class="nav-center-label welcome-message">Welcome, <%= user.name %>!</div>
+      <% } else { %>
+        <div class="nav-center-label welcome-message">Welcome!</div>
+      <% } %>
+    </div>
+
+    <nav>
+      <ul class="nav-menu">
+        <% if (user) { %>
+          <% if (user.role === 'admin') { %>
+            <li><a href="/dashboard/admin">Dashboard</a></li>
+            <li><a href="/flights">Browse Flights</a></li>
+          <% } else if (user.role === 'user') { %>
+            <li><a href="/dashboard/user">Dashboard</a></li>
+            <li><a href="/flights">Browse Flights</a></li>
+            <li><a href="/user/bookings">My Bookings</a></li>
+          <% } %>
+        <% } else { %>
+          <li><a href="/flights">Browse Flights</a></li>
+        <% } %>
+      </ul>
+
+      <% if (user) { %>
+        <form action="/api/auth/logout" method="POST" class="logout-form">
+          <button type="submit" class="link-button">Logout</button>
+        </form>
+      <% } else { %>
+        <div class="right-menu">
+          <a href="/login" class="link-button">Login</a>
+          <a href="/register/user" class="link-button">Sign Up</a>
+        </div>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="content">
+    <%- body %>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Flight Booking System</p>
+  </footer>
+</body>
+</html>

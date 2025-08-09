@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Flights</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    /* Modal and table styles */
+    #flightFormModal {
+      display: none;
+      position: fixed;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+
+    #modalOverlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+
+    th, td {
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    button {
+      margin-right: 0.5em;
+      cursor: pointer;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    form label {
+      font-weight: bold;
+    }
+
+    form input {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    form button {
+      margin-top: 10px;
+    }
+
+    #paginationControls {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
+      user-select: none;
+      margin: 0.75em auto 1em auto;
+      max-width: fit-content;
+      padding: 0;
+    }
+
+    #paginationControls button {
+      background: none;
+      border: none;
+      color: #555;
+      padding: 2px 5px;
+      cursor: pointer;
+      border-radius: 2px;
+      min-width: 22px;
+      line-height: 1.1;
+      font-weight: 400;
+      transition: color 0.2s ease;
+    }
+
+    #paginationControls button:hover:not(:disabled),
+    #paginationControls button:focus:not(:disabled) {
+      color: #111;
+      outline: none;
+      text-decoration: underline;
+    }
+
+    #paginationControls button:disabled {
+      cursor: default;
+      color: #bbb;
+    }
+
+    #paginationControls button.active-page {
+      font-weight: 700;
+      color: #000;
+      cursor: default;
+      text-decoration: underline;
+      pointer-events: none;
+    }
+
+    #paginationControls .ellipsis {
+      padding: 0 3px;
+      color: #999;
+      line-height: 24px;
+      user-select: none;
+    }
+
+    #searchInput {
+      margin-top: 1em;
+      padding: 5px;
+      width: 400px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>Manage Flights</h2>
+
+  <button id="addFlightBtn">Add New Flight</button>
+
+  <input type="text" id="searchInput" placeholder="Search flights by number, origin, destination..." aria-label="Search flights" />
+
+  <table id="flightsTable" aria-label="Flights Table">
+    <thead>
+      <tr>
+        <th>Flight Number</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Available Seats</th>
+        <th>Price ($)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="flightsTableBody">
+      <!-- Flights rows will be populated here by JS -->
+    </tbody>
+  </table>
+
+  <div id="paginationControls" aria-label="Pagination navigation" role="navigation"></div>
+
+  <div id="modalOverlay"></div>
+
+  <div id="flightFormModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Add/Edit Flight</h3>
+    <form id="flightForm">
+      <input type="hidden" name="id" id="flightId" />
+
+      <label for="flightNumber">Flight Number:</label><br />
+      <input type="text" id="flightNumber" name="flightNumber" required /><br /><br />
+
+      <label for="origin">Origin:</label><br />
+      <input type="text" id="origin" name="origin" required /><br /><br />
+
+      <label for="destination">Destination:</label><br />
+      <input type="text" id="destination" name="destination" required /><br /><br />
+
+      <label for="departureTime">Departure Time:</label><br />
+      <input type="datetime-local" id="departureTime" name="departureTime" required /><br /><br />
+
+      <label for="arrivalTime">Arrival Time:</label><br />
+      <input type="datetime-local" id="arrivalTime" name="arrivalTime" required /><br /><br />
+
+      <label for="availableSeats">Available Seats:</label><br />
+      <input type="number" id="availableSeats" name="availableSeats" min="1" required /><br /><br />
+
+      <label for="price">Price ($):</label><br />
+      <input type="number" id="price" name="price" step="0.01" min="0" required /><br /><br />
+
+      <button type="submit">Save Flight</button>
+      <button type="button" id="cancelFlightBtn">Cancel</button>
+    </form>
+  </div>
+
+  <script>
+    // Modal elements and control
+    const modal = document.getElementById('flightFormModal');
+    const overlay = document.getElementById('modalOverlay');
+    const form = document.getElementById('flightForm');
+    const addFlightBtn = document.getElementById('addFlightBtn');
+    const cancelBtn = document.getElementById('cancelFlightBtn');
+
+    const flightsTableBody = document.getElementById('flightsTableBody');
+    const searchInput = document.getElementById('searchInput');
+    const paginationControls = document.getElementById('paginationControls');
+
+    let currentPage = 1;
+    const limit = 10;
+    let totalPages = 1;
+    let currentSearch = '';
+
+    function openModal() {
+      modal.style.display = 'block';
+      overlay.style.display = 'block';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+    }
+
+    addFlightBtn.addEventListener('click', () => {
+      form.reset();
+      form.id.value = '';
+      openModal();
+    });
+
+    cancelBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+
+    // Fetch and render flights from API with pagination and search
+    async function fetchFlights(page = 1, search = '') {
+      try {
+        const res = await fetch(`/api/admin/flights?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`);
+        if (!res.ok) throw new Error('Failed to fetch flights.');
+
+        const data = await res.json();
+        totalPages = data.totalPages || 1;
+        currentPage = data.page || 1;
+
+        renderFlights(data.flights);
+        renderPagination();
+      } catch (err) {
+        alert('Error loading flights.');
+        console.error(err);
+      }
+    }
+
+    function renderFlights(flights) {
+      flightsTableBody.innerHTML = '';
+
+      if (flights.length === 0) {
+        flightsTableBody.innerHTML = '<tr><td colspan="8">No flights available.</td></tr>';
+        return;
+      }
+
+      flights.forEach(flight => {
+        const row = document.createElement('tr');
+        row.setAttribute('data-id', flight._id);
+        row.setAttribute('data-origin', flight.origin);
+        row.setAttribute('data-destination', flight.destination);
+        row.setAttribute('data-availableSeats', flight.availableSeats);
+
+        row.innerHTML = `
+          <td>${flight.flightNumber}</td>
+          <td>${flight.origin}</td>
+          <td>${flight.destination}</td>
+          <td>${new Date(flight.departureTime).toLocaleString()}</td>
+          <td>${new Date(flight.arrivalTime).toLocaleString()}</td>
+          <td>${flight.availableSeats}</td>
+          <td>${flight.price.toFixed(2)}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="editFlightBtn">Edit</button>
+              <button class="deleteFlightBtn">Delete</button>
+            </div>
+          </td>
+        `;
+
+        flightsTableBody.appendChild(row);
+      });
+
+      // Attach event listeners for edit and delete buttons
+      document.querySelectorAll('.editFlightBtn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const row = e.target.closest('tr');
+          const id = row.getAttribute('data-id');
+          const flightNumber = row.cells[0].textContent;
+          const origin = row.cells[1].textContent;
+          const destination = row.cells[2].textContent;
+          const departureTime = new Date(row.cells[3].textContent);
+          const arrivalTime = new Date(row.cells[4].textContent);
+          const availableSeats = row.cells[5].textContent;
+          const price = row.cells[6].textContent;
+
+          form.id.value = id;
+          form.flightNumber.value = flightNumber;
+          form.origin.value = origin;
+          form.destination.value = destination;
+          // Format datetime-local value YYYY-MM-DDTHH:mm for inputs
+          form.departureTime.value = formatDateTimeLocal(departureTime);
+          form.arrivalTime.value = formatDateTimeLocal(arrivalTime);
+          form.availableSeats.value = availableSeats;
+          form.price.value = price;
+
+          openModal();
+        });
+      });
+
+      document.querySelectorAll('.deleteFlightBtn').forEach(btn => {
+        btn.addEventListener('click', async e => {
+          const row = e.target.closest('tr');
+          const id = row.getAttribute('data-id');
+
+          if (confirm('Are you sure you want to delete this flight?')) {
+            try {
+              const res = await fetch(`/api/flights/${id}`, { method: 'DELETE' });
+              if (res.ok) {
+                alert('Flight deleted successfully.');
+                fetchFlights(currentPage, currentSearch);
+              } else {
+                const data = await res.json();
+                alert('Failed to delete flight: ' + (data.message || 'Unknown error'));
+              }
+            } catch (err) {
+              alert('Error deleting flight.');
+              console.error(err);
+            }
+          }
+        });
+      });
+    }
+
+    function formatDateTimeLocal(date) {
+      const pad = (num) => num.toString().padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    }
+
+    // Handle form submission for add/edit flight with validation
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const departure = new Date(form.departureTime.value);
+      const arrival = new Date(form.arrivalTime.value);
+
+      if (arrival < departure) {
+        alert("Arrival time cannot be before departure time.");
+        return;
+      }
+
+      const id = form.id.value;
+      const flightData = {
+        flightNumber: form.flightNumber.value.trim(),
+        origin: form.origin.value.trim(),
+        destination: form.destination.value.trim(),
+        departureTime: departure.toISOString(),
+        arrivalTime: arrival.toISOString(),
+        availableSeats: parseInt(form.availableSeats.value, 10),
+        price: parseFloat(form.price.value),
+      };
+
+      try {
+        let res;
+        if (id) {
+          // Update flight
+          res = await fetch(`/api/flights/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(flightData),
+          });
+        } else {
+          // Add new flight
+          res = await fetch('/api/flights', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(flightData),
+          });
+        }
+
+        if (res.ok) {
+          alert(`Flight ${id ? 'updated' : 'added'} successfully.`);
+          closeModal();
+          fetchFlights(currentPage, currentSearch);
+        } else {
+          const data = await res.json();
+          alert(`Failed to save flight: ${data.message || 'Unknown error'}`);
+        }
+      } catch (err) {
+        alert('Error saving flight.');
+        console.error(err);
+      }
+    });
+
+    // Pagination rendering function (Amazon-style compact)
+    function renderPagination() {
+      paginationControls.innerHTML = '';
+
+      // Prev button
+      const prevBtn = document.createElement('button');
+      prevBtn.textContent = '‹';  // Left angle quote
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.setAttribute('aria-label', 'Previous page');
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) fetchFlights(currentPage - 1, currentSearch);
+      });
+      paginationControls.appendChild(prevBtn);
+
+      // Always show first page
+      paginationControls.appendChild(createPageButton(1));
+
+      let startPage = currentPage - 2;
+      let endPage = currentPage + 2;
+
+      if (startPage < 2) {
+        endPage += (2 - startPage);
+        startPage = 2;
+      }
+      if (endPage > totalPages - 1) {
+        startPage -= (endPage - (totalPages - 1));
+        endPage = totalPages - 1;
+      }
+      startPage = Math.max(startPage, 2);
+
+      if (startPage > 2) {
+        const ellipsisLeft = document.createElement('span');
+        ellipsisLeft.textContent = '...';
+        ellipsisLeft.className = 'ellipsis';
+        paginationControls.appendChild(ellipsisLeft);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        if (i > 1 && i < totalPages) {
+          paginationControls.appendChild(createPageButton(i));
+        }
+      }
+
+      if (endPage < totalPages - 1) {
+        const ellipsisRight = document.createElement('span');
+        ellipsisRight.textContent = '...';
+        ellipsisRight.className = 'ellipsis';
+        paginationControls.appendChild(ellipsisRight);
+      }
+
+      if (totalPages > 1) {
+        paginationControls.appendChild(createPageButton(totalPages));
+      }
+
+      // Next button
+      const nextBtn = document.createElement('button');
+      nextBtn.textContent = '›';  // Right angle quote
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.setAttribute('aria-label', 'Next page');
+      nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) fetchFlights(currentPage + 1, currentSearch);
+      });
+      paginationControls.appendChild(nextBtn);
+    }
+
+    function createPageButton(page) {
+      const btn = document.createElement('button');
+      btn.textContent = page;
+      btn.setAttribute('aria-label', `Go to page ${page}`);
+      btn.className = page === currentPage ? 'active-page' : '';
+      btn.disabled = page === currentPage;
+      btn.addEventListener('click', () => fetchFlights(page, currentSearch));
+      return btn;
+    }
+
+    // Search input with debounce
+    let searchTimeout;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        currentSearch = searchInput.value.trim();
+        fetchFlights(1, currentSearch);
+      }, 300);
+    });
+
+    // Initial fetch
+    fetchFlights();
+  </script>
+</body>
+</html>

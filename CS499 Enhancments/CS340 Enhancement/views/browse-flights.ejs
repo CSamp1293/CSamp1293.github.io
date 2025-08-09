@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Flights</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<% if (!user || (user && user.role === 'user')) { %>
+  <div class="browse-background">
+<% } else { %>
+  <div>
+<% } %>
+
+  <div class="dashboard">
+    <h2>Browse Flights</h2>
+
+    <style>
+      .dashboard {
+        background-color: rgba(255, 255, 255, 0.94);
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 960px;
+        margin: auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      #paginationControls {
+        display: flex;
+        justify-content: center;
+        gap: 2px;
+        font-family: Arial, sans-serif;
+        font-size: 0.75rem;
+        user-select: none;
+        margin: 0.75em auto 1em auto;
+        max-width: fit-content;
+        padding: 0;
+      }
+
+      #paginationControls button {
+        background: none;
+        border: none;
+        color: #555;
+        padding: 2px 5px;
+        cursor: pointer;
+        border-radius: 2px;
+        min-width: 22px;
+        line-height: 1.1;
+        font-weight: 400;
+        transition: color 0.2s ease;
+      }
+
+      #paginationControls button:hover:not(:disabled),
+      #paginationControls button:focus:not(:disabled) {
+        color: #111;
+        outline: none;
+        text-decoration: underline;
+      }
+
+      #paginationControls button:disabled {
+        cursor: default;
+        color: #bbb;
+      }
+
+      #paginationControls button.active-page {
+        font-weight: 700;
+        color: #000;
+        cursor: default;
+        text-decoration: underline;
+        pointer-events: none;
+      }
+
+      #paginationControls .ellipsis {
+        padding: 0 3px;
+        color: #999;
+        line-height: 24px;
+        user-select: none;
+      }
+    </style>
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search flights..."
+      aria-label="Search flights"
+      style="margin-bottom: 10px; width: 100%; max-width: 300px; padding: 6px;"
+    />
+
+    <ul class="flight-list" id="flightsList">
+      <!-- Flights will be dynamically rendered here -->
+    </ul>
+
+    <nav
+      id="paginationControls"
+      aria-label="Pagination navigation"
+      style="margin-top: 1em; display: flex; justify-content: center; gap: 6px;"
+    ></nav>
+  </div>
+</div>
+
+<script>
+  const flightsList = document.getElementById("flightsList");
+  const paginationControls = document.getElementById("paginationControls");
+  const searchInput = document.getElementById("searchInput");
+
+  let currentPage = 1;
+  const limit = 5;
+  let totalPages = 1;
+  let currentSearch = "";
+
+  const user = JSON.parse('<%- JSON.stringify(user || null) %>');
+  const bookedFlightIds = JSON.parse('<%- JSON.stringify(bookedFlightIds || []) %>');
+
+  async function fetchFlights(page = 1, search = "") {
+    try {
+      const res = await fetch(
+        `/api/flights/paginated?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch flights.");
+
+      const data = await res.json();
+      totalPages = data.totalPages || 1;
+      currentPage = data.page || 1;
+
+      renderFlights(data.flights);
+      renderPagination();
+    } catch (err) {
+      flightsList.innerHTML = "<li>Error loading flights.</li>";
+      console.error(err);
+    }
+  }
+
+  function renderFlights(flights) {
+    flightsList.innerHTML = "";
+
+    if (!flights || flights.length === 0) {
+      flightsList.innerHTML = "<li>No flights found.</li>";
+      return;
+    }
+
+    flights.forEach((flight) => {
+      const li = document.createElement("li");
+      li.className = "flight-item";
+
+      li.innerHTML = `
+        <strong>Flight Number: ${flight.flightNumber}</strong><br>
+        From ${flight.origin} to ${flight.destination}<br>
+        Departure: ${new Date(flight.departureTime).toLocaleString()}<br>
+        Arrival: ${new Date(flight.arrivalTime).toLocaleString()}<br>
+        Available Seats: ${flight.availableSeats}<br>
+        Price: $${flight.price.toFixed(2)}<br>
+      `;
+
+      if (user && user.role === "user") {
+        if (bookedFlightIds.includes(flight._id)) {
+          const bookedBtn = document.createElement("button");
+          bookedBtn.className = "link-button booked-btn";
+          bookedBtn.disabled = true;
+          bookedBtn.textContent = "Booked!";
+          li.appendChild(bookedBtn);
+        } else {
+          const bookBtn = document.createElement("button");
+          bookBtn.className = "link-button book-btn";
+          bookBtn.textContent = flight.availableSeats < 1 ? "Full" : "Book Now";
+          if (flight.availableSeats < 1) bookBtn.disabled = true;
+          bookBtn.setAttribute("data-flight-id", flight._id);
+          li.appendChild(bookBtn);
+        }
+      } else if (!user) {
+        const loginAlertBtn = document.createElement("button");
+        loginAlertBtn.className = "link-button";
+        loginAlertBtn.textContent = "Book Now";
+        loginAlertBtn.addEventListener("click", () =>
+          alert("Please log in to book a flight.")
+        );
+        li.appendChild(loginAlertBtn);
+      }
+
+      flightsList.appendChild(li);
+    });
+
+    attachBookingListeners();
+  }
+
+  function renderPagination() {
+    paginationControls.innerHTML = "";
+
+    const prevBtn = document.createElement("button");
+    prevBtn.textContent = "‹";
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.setAttribute("aria-label", "Previous page");
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1) fetchFlights(currentPage - 1, currentSearch);
+    });
+    paginationControls.appendChild(prevBtn);
+
+    if (totalPages > 1) {
+      paginationControls.appendChild(createPageButton(1));
+
+      if (currentPage > 3) {
+        const ellipsis1 = document.createElement("span");
+        ellipsis1.textContent = "...";
+        paginationControls.appendChild(ellipsis1);
+      }
+
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        paginationControls.appendChild(createPageButton(i));
+      }
+
+      if (currentPage < totalPages - 2) {
+        const ellipsis2 = document.createElement("span");
+        ellipsis2.textContent = "...";
+        paginationControls.appendChild(ellipsis2);
+      }
+
+      if (totalPages > 1) {
+        paginationControls.appendChild(createPageButton(totalPages));
+      }
+    }
+
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "›";
+    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.setAttribute("aria-label", "Next page");
+    nextBtn.addEventListener("click", () => {
+      if (currentPage < totalPages) fetchFlights(currentPage + 1, currentSearch);
+    });
+    paginationControls.appendChild(nextBtn);
+  }
+
+  function createPageButton(page) {
+    const btn = document.createElement("button");
+    btn.textContent = page;
+    btn.className = page === currentPage ? "active-page" : "";
+    btn.disabled = page === currentPage;
+    btn.setAttribute("aria-label", `Go to page ${page}`);
+    btn.addEventListener("click", () => fetchFlights(page, currentSearch));
+    return btn;
+  }
+
+  function attachBookingListeners() {
+    document.querySelectorAll(".book-btn").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const flightId = button.getAttribute("data-flight-id");
+
+        try {
+          const response = await fetch("/api/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ flightId }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            alert(data.message || "Booking successful!");
+            button.disabled = true;
+            button.classList.add("booked-btn");
+            button.textContent = "Booked!";
+          } else {
+            alert(data.message || "Failed to book flight: " + (data.message || "Unknown error"));
+          }
+        } catch (error) {
+          alert("Error booking flight. Please try again.");
+          console.error(error);
+        }
+      });
+    });
+  }
+
+  let searchTimeout;
+  searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      currentSearch = searchInput.value.trim();
+      fetchFlights(1, currentSearch);
+    }, 300);
+  });
+
+  fetchFlights();
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="user-reg-bg">
+    <div class="container">
+      <h2>User Registration</h2>
+
+      <% if (errors && errors.length > 0) { %>
+        <ul class="error-list" role="alert">
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      <% } %>
+
+      <% if (successMessage) { %>
+        <div id="message" class="success" role="alert"><%= successMessage %></div>
+      <% } %>
+
+      <form id="registerForm" method="POST" action="/api/auth/register/user">
+          <label>Name:</label>
+          <input type="text" name="name" value="<%= formData?.name || '' %>" required />
+
+          <label>Email:</label>
+          <input type="email" name="email" value="<%= formData?.email || '' %>" required />
+
+          <label>Password:</label>
+          <input type="password" name="password" required />
+
+          <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

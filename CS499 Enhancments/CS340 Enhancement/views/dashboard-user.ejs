@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="dashboard-background">
+    <div class="dashboard">
+      <div class="filter-bar">
+        <form method="GET" action="/dashboard/user">
+          <label for="sort">Sort by:</label>
+          <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="popular" <%= (typeof sort !== 'undefined' && sort === 'popular') ? 'selected' : '' %>>Popular</option>
+            <option value="cheapest" <%= sort === 'cheapest' ? 'selected' : '' %>>Cheapest</option>
+            <option value="mostSeats" <%= sort === 'mostSeats' ? 'selected' : '' %>>Most Seats</option>
+          </select>
+        </form>
+      </div>
+      <h2>Recommended Flights</h2>
+
+      <% if (flights && flights.length > 0) { %>
+        <ul class="flight-list">
+          <% flights.forEach(flight => { %>
+            <li class="flight-item">
+              <strong>Flight Number: <%= flight.flightNumber %></strong><br>
+              From <%= flight.origin %> to <%= flight.destination %><br>
+
+              <div class="flight-actions">
+                <button class="details-btn" type="button">Details</button>
+                <button
+                  class="link-button book-btn"
+                  data-flight-id="<%= flight._id %>"
+                  <%= flight.availableSeats < 1 ? 'disabled' : '' %>>
+                  <%= flight.availableSeats < 1 ? 'Full' : 'Book Now' %>
+                </button>
+              </div>
+
+              <div class="flight-details" style="display: none;">
+                <p><strong>Departure Time:</strong> <%= new Date(flight.departureTime).toLocaleString() %></p>
+                <p><strong>Arrival Time:</strong> <%= new Date(flight.arrivalTime).toLocaleString() %></p>
+                <p><strong>Available Seats:</strong> <%= flight.availableSeats %></p>
+                <p><strong>Price:</strong> $<%= flight.price.toFixed(2) %></p>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p>No flight recommendations at this time.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.details-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const detailsDiv = button.closest('.flight-item').querySelector('.flight-details');
+          if (detailsDiv.style.display === 'none' || detailsDiv.style.display === '') {
+            detailsDiv.style.display = 'block';
+            button.textContent = 'Hide Details';
+          } else {
+            detailsDiv.style.display = 'none';
+            button.textContent = 'Details';
+          }
+        });
+      });
+
+      document.querySelectorAll('.book-btn').forEach(button => {
+        button.addEventListener('click', async () => {
+          const flightId = button.getAttribute('data-flight-id');
+          try {
+            const response = await fetch('/api/bookings', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ flightId })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert(data.message || 'Booking successful!');
+              button.disabled = true;
+              button.classList.add('booked-btn');
+              button.textContent = 'Booked!';
+            } else {
+              alert(data.message || 'Failed to book flight.');
+            }
+          } catch (error) {
+            console.error('Booking error:', error);
+            alert('Error booking flight. Please try again.');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

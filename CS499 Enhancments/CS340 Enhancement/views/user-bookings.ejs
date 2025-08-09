@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Bookings</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<h2>My Bookings</h2>
+
+<div class="booking-bg">
+  <% if (bookings.length === 0) { %>
+    <p>You have no bookings yet.</p>
+  <% } else { %>
+    <table class="bookings-table">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th>Route</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% bookings.forEach(booking => { %>
+          <tr>
+            <% if (booking.flight) { %>
+              <td><%= booking.flight.flightNumber %></td>
+              <td><%= booking.flight.origin %> → <%= booking.flight.destination %></td>
+              <td><%= new Date(booking.flight.departureTime).toLocaleString() %></td>
+              <td><%= new Date(booking.flight.arrivalTime).toLocaleString() %></td>
+              <td>$<%= booking.flight.price.toFixed(2) %></td>
+            <% } else { %>
+              <td colspan="5">Flight information not available</td>
+            <% } %>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+</body>
+</html>

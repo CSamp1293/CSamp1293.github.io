@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Registration</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Registration</h2>
+
+    <% if (errors && errors.length > 0) { %>
+      <ul class="error-list" role="alert">
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    <% } %>
+
+    <% if (successMessage) { %>
+      <div id="message" class="success" role="alert"><%= successMessage %></div>
+    <% } %>
+
+    <form id="registerAdminForm" method="POST" action="/api/auth/register/admin">
+        <label>Name:</label>
+        <input type="text" name="name" value="<%= formData?.name || '' %>" required />
+
+        <label>Email:</label>
+        <input type="email" name="email" value="<%= formData?.email || '' %>" required />
+
+        <label>Password:</label>
+        <input type="password" name="password" required />
+
+        <button type="submit">Register Admin</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+﻿  Source.cpp
+C:\Users\Corey\source\repos\CS300 Project Two\CS300 Project Two\Source.cpp(51,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Corey\source\repos\CS300 Project Two\CS300 Project Two\Source.cpp(54,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Corey\source\repos\CS300 Project Two\CS300 Project Two\Source.cpp(66,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  CS300 Project Two.vcxproj -> C:\Users\Corey\source\repos\CS300 Project Two\x64\Debug\CS300 Project Two.exe
