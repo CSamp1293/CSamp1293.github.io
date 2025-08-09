@@ -1,8 +1,0 @@
-﻿  Encryptor.cpp
-C:\Users\Corey\OneDrive\Desktop\CS 405 Enhancement\SecurityPolicyUnitTests\Encryptor.cpp(16,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
-  FileManager.cpp
-C:\Users\Corey\OneDrive\Desktop\CS 405 Enhancement\SecurityPolicyUnitTests\FileManager.cpp(24,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
-  Logger.cpp
-C:\Users\Corey\OneDrive\Desktop\CS 405 Enhancement\SecurityPolicyUnitTests\Logger.cpp(8,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
-  main.cpp
-  Generating Code...
