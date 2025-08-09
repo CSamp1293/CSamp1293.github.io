@@ -1,8 +1,0 @@
-MATH201, Discrete Mathematics
-CS300, Introduction to Algorithms, CS200, MATH201
-CS350, Operating Systems, CS300
-CS101, Introduction to Programming in C++, CS100
-CS100, Introduction to Computer Science
-CS301, Advanced Programming in C++, CS101
-CS400, Large Software Development, CS301, CS350
-CS200, Data Structures, CS101
