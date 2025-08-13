@@ -2,40 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CS 499 Code Review</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f9f9f9;
+      margin: 0;
+      background-color: #f4f4f4;
       color: #333;
     }
-    h1, h2 {
-      color: #004080;
+
+    nav {
+      background: #007acc;
+      padding: 0.8rem;
+      text-align: center;
     }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: white;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #007acc;
+    }
+
     a {
-      color: #0066cc;
+      color: #007acc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ul {
+      padding-left: 1.5rem;
     }
   </style>
 </head>
 <body>
-  <h1>CS 499 Code Review</h1>
 
-  <p>Welcome to my Code Review for CS 499. Below is a walkthrough video and summary of the three artifacts I enhanced during this course.</p>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="code-review.html">Code Review</a>
+    <a href="CS405.html">Software Engineering and Design</a>
+    <a href="CS300.html">Algorithms and Data Structures</a>
+    <a href="CS340.html">Databases</a>
+  </nav>
 
-  <h2>📹 Video Walkthrough</h2>
-  <p><a href="https://youtu.be/pGrsFv9IrJc" target="_blank">Watch the Code Review Video</a></p>
+  <!-- Header -->
+  <header>
+    <h1>CS 499 Code Review</h1>
+    <p>A professional analysis of original artifacts and planned enhancements.</p>
+  </header>
 
-  <h2>🗂️ Reviewed Projects</h2>
-  <ul>
-    <li><strong>Software Engineering and Design:</strong> C++ Encryption Tool (CS 405)</li>
-    <li><strong>Algorithms and Data Structures:</strong> Python Course Scheduling Tool (CS 300)</li>
-    <li><strong>Databases:</strong> NoSQL MongoDB Airline Booking API (CS 340)</li>
-  </ul>
+  <!-- Video Section -->
+  <section>
+    <h2>📹 Video Walkthrough</h2>
+    <p><a href="https://youtu.be/pGrsFv9IrJc" target="_blank">Watch the Code Review Video</a></p>
+  </section>
 
-  <h2>🧠 Reflection</h2>
-  <p>This code review presents the enhancements I made to legacy course projects using secure coding practices, modular design, and algorithmic reasoning. Each artifact demonstrates my development as a software engineer ready for industry challenges.</p>
+  <!-- Projects Section-->
+  <section>
+    <h2>🗂️ Reviewed Projects</h2>
+    <ul>
+      <li><strong>Software Engineering and Design:</strong> C++ Encryption Tool (CS 405)</li>
+      <li><strong>Algorithms and Data Structures:</strong> Python Course Scheduling Tool (CS 300)</li>
+      <li><strong>Databases:</strong> NoSQL MongoDB Airline Booking API (CS 340)</li>
+    </ul>
+  </section>
 
-  <p>Back to <a href="index.html">home</a></p>
+  <!-- Reflection Section -->
+  <section>
+    <h2>🧠 Reflection</h2>
+    <p>This code review presents the enhancements I made to legacy course projects using secure coding practices, modular design, and algorithmic reasoning. Each artifact demonstrates my development as a software engineer ready for industry challenges.</p>
+  </section>
 </body>
 </html>
