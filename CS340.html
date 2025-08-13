@@ -66,8 +66,56 @@
       font-weight: bold;
     }
 
+    .screenshot-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+
+    .screenshot-gallery img {
+      flex: 1 1 calc(33% - 1rem);
+      max-width: calc(33% - 1rem);
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
     a:hover {
       text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #007acc;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #ffdd57;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 1024px) {
+      .screenshot-gallery img {
+        flex: 1 1 calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .screenshot-gallery img {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -91,6 +139,19 @@
   <section>
     <h2>📄 Artifact Overview</h2>
     <p>This artifact was originally created for my CS 340: Client/Server Development course as a SQL-based airline booking system. For the CS 499 enhancement, I migrated the backend to a NoSQL MongoDB database, implemented RESTful API endpoints using Express.js, and added JWT authentication for secure user access.</p>
+
+    <div class="screenshot-gallery">
+      <img src="images/CS340 Home.png" alt="CS340 Booking System Home Page">
+      <img src="images/CS340 Login.png" alt="CS340 Booking System Login Page">
+      <img src="images/CS340 Sign Up.png" alt="CS340 Booking System Sign Up Page">
+      <img src="images/CS340 Customer Dashboard.png" alt="CS340 Booking System Customer Dashboard">
+      <img src="images/CS340 Customer Bookings.png" alt="CS340 Booking System Customer Bookings">
+      <img src="images/CS340 Admin Dashboard.png" alt="CS340 Booking System Admin Dashboard">
+      <img src="images/CS340 Admin Manage Flights.png" alt="CS340 Booking System Admin Flight Management">
+      <img src="images/CS340 Admin Add Flight.png" alt="CS340 Booking System Admin Add Flight">
+      <img src="images/CS340 Admin Manage Bookings.png" alt="CS340 Booking System Admin Manage Bookings">
+      <img src="images/CS340 Admin Register New Admin.png" alt="CS340 Booking System Admin Register New Admin">
+    </div>
   </section>
 
   <!-- Skills Demonstrated -->
@@ -110,5 +171,10 @@
     <p><a href="https://github.com/CSamp1293/CSamp1293.github.io/tree/main/CS499%20Originals/CS340%20Original" target="_blank">View the Original CS 340 project on GitHub</a></p>
     <p><a href="https://github.com/CSamp1293/CSamp1293.github.io/tree/main/CS499%20Enhancments/CS340%20Enhancement" target="_blank">View the Enhanced MongoDB Full-Stack Airline Booking Application on GitHub</a></p>
   </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Corey Sampson | <a href="https://github.com/CSamp1293" target="_blank">GitHub</a> | Southern New Hampshire University - CS 499</p>
+  </footer>
 </body>
 </html>
