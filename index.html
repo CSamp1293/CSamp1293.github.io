@@ -7,33 +7,120 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 2rem;
+      margin: 0;
       background-color: #f4f4f4;
       color: #333;
     }
-    h1 {
-      color: #007acc;
+
+    nav {
+      background: #007acc;
+      padding: 0.8rem;
+      text-align: center;
     }
-    a {
-      color: #007acc;
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
     }
-    a:hover {
+
+    nav a:hover {
       text-decoration: underline;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: white;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      color: #007acc;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .about {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .artifacts {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .artifact-card {
+      background: white;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .artifact-card h3 {
+      margin-top: 0;
+      color: #007acc;
     }
   </style>
 </head>
-<body>
-  <h1>Welcome to My CS 499 ePortfolio</h1>
-  <p>This site highlights my work and progress as a computer science student at Southern New Hampshire Univeristy.</p>
 
-  <h2>Artifacts</h2>
-  <ul>
-    <li><a href="code-review.html">📹 CS 499 Code Review</a></li>
-    <li><a href="CS405.html">💻 Software Engineering and Design</a></li>
-    <li><a href="CS300.html">🖥 Algorithms and Data Structures</a></li>
-    <li><a href="CS340.html">⛃ Databases</a></li>
-  </ul>
-</body>
+<body>
+  <!-- Navigation -->
+   <nav>
+    <a href="index.html">Home</a>
+    <a href="code-review.html">Code Review</a>
+    <a href="CS405.html">Software Engineering and Design</a>
+    <a href="CS300.html">Algorithms and Data Structures</a>
+    <a href="CS340.html">Databases</a>
+   </nav>
+
+   <!-- Hero Section -->
+    <header>
+      <h1>Corey Sampson</h1>
+      <p>Software Engineering Student | Aspiring Full-Stack Developer</p>
+    </header>
+
+    <!-- About -->
+     <section class="about">
+      <p>Welcome to my CS 499 ePortfolio. This site highlights my journey and growth as a computer science student at Southern New Hampshire University, showcasing my enhanced projects across software engineering, algorithms, and databases.</p>
+     </section>
+
+    <!-- Artifacts -->
+    <section class="artifacts">
+      <h2>Featured Enhancements</h2>
+
+      <div class="artifact-card">
+        <h3>📹 <a href="code-review.html">CS 499 Code Review</a></h3>
+        <p>A recorded walkthrough and professional analysis of my enhancement plans and original code.</p>
+      </div>
+
+      <div class="artifact-card">
+        <h3>💻 <a href="CS405.html">Software Engineering and Design</a></h3>
+        <p>Refactored a C++ file encryption tool using object-oriented programming principles, logging, and input validation.</p>
+      </div>
+
+      <div class="artifact-card">
+        <h3>🖥 <a href="CS300.html">Algorithms and Data Structures</a></h3>
+        <p>Rewrote a course scheduling program in Python, implementing recursive prerequisite chain resolution.</p>
+      </div>
+
+      <div class="artifact-card">
+        <h3>⛃ <a href="CS340.html">Databases</a></h3>
+        <p>Migrated an SQL airline booking system to a NoSQL MongoDB backend with Express.js, JWT authentication, schema validation, and a fully functioning customer/admin frontend.</p>
+      </div>
+    </section>
+  </body>
 </html> 
