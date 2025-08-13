@@ -60,6 +60,22 @@
       color: #007acc;
     }
 
+    .screenshot-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+
+    .screenshot-gallery img {
+      flex: 1 1 calc(33% - 1rem);
+      max-width: calc(33% - 1rem);
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
     a {
       color: #007acc;
       text-decoration: none;
@@ -68,6 +84,38 @@
 
     a:hover {
       text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #007acc;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #ffdd57;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 1024px) {
+      .screenshot-gallery img {
+        flex: 1 1 calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .screenshot-gallery img {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -91,6 +139,11 @@
   <section>
     <h2>📄 Artifact Overview</h2>
     <p>This project originated from my CS 405: Secure Coding course. The original program was a basic C++ file encryption and decryption tool using XOR logic. For my CS 499 enhancement, I refactored it using object-oriented programming principles, improved file handling, added command-line flexibility, and implemented secure key management.</p>
+    
+    <div class="screenshot-gallery">
+      <img src="images/CS405Enhanced1.png" alt="CS 405 Encryption Tool">
+      <img src="images/CS405Enhanced2.png" alt="CS 405 Input/Output Files">
+    </div>
   </section>
 
   <!-- Skills Demonstrated -->
@@ -110,5 +163,10 @@
     <p><a href="https://github.com/CSamp1293/CSamp1293.github.io/tree/main/CS499%20Originals/CS405%20Original" target="_blank">View the Original CS 405 project on GitHub</a></p>
     <p><a href="https://github.com/CSamp1293/CSamp1293.github.io/tree/main/CS499%20Enhancments/CS405%20Enhancement" target="_blank">View the Enhanced C++ Encryption Tool on GitHub</a></p>
   </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Corey Sampson | <a href="https://github.com/CSamp1293" target="_blank">GitHub</a> | Southern New Hampshire University - CS 499</p>
+  </footer>
 </body>
 </html>
