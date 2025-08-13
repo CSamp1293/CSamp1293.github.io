@@ -66,20 +66,41 @@
       font-weight: bold;
     }
 
-    .screenshot-gallery {
+    .scroll-gallery {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-      justify-content: center;
+      overflow-x: auto;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      scroll-snap-type: x mandatory;
     }
 
-    .screenshot-gallery img {
-      flex: 1 1 calc(33% - 1rem);
-      max-width: calc(33% - 1rem);
+    .scroll-gallery::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .scroll-gallery::-webkit-scrollbar-thumb {
+      background-color: #bbb;
+      border-radius: 5px;
+    }
+
+    .gallery-item {
+      flex: 0 0 80%;
+      max-width: 900px;
+      scroll-snap-align: center;
+    }
+
+    .gallery-item img {
+      width: 100%;
       height: auto;
-      border: 1px solid #ccc;
       border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .caption {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 0.5rem;
     }
 
     a:hover {
@@ -103,20 +124,6 @@
     footer a:hover {
       text-decoration: underline;
     }
-
-    @media (max-width: 1024px) {
-      .screenshot-gallery img {
-        flex: 1 1 calc(50% - 1rem);
-        max-width: calc(50% - 1rem);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .screenshot-gallery img {
-        flex: 1 1 100%;
-        max-width: 100%;
-      }
-    }
   </style>
 </head>
 <body>
@@ -139,18 +146,62 @@
   <section>
     <h2>📄 Artifact Overview</h2>
     <p>This artifact was originally created for my CS 340: Client/Server Development course as a SQL-based airline booking system. For the CS 499 enhancement, I migrated the backend to a NoSQL MongoDB database, implemented RESTful API endpoints using Express.js, and added JWT authentication for secure user access.</p>
+  </section>
 
-    <div class="screenshot-gallery">
-      <img src="images/CS340 Home Page.png" alt="CS340 Booking System Home Page">
-      <img src="images/CS340 Login Page.png" alt="CS340 Booking System Login Page">
-      <img src="images/CS340 Sign Up Page.png" alt="CS340 Booking System Sign Up Page">
-      <img src="images/CS340 Dashboard(User).png" alt="CS340 Booking System User Dashboard">
-      <img src="images/CS340 User Bookings.png" alt="CS340 Booking System User Bookings">
-      <img src="images/CS340 Dashboard(Admin).png" alt="CS340 Booking System Admin Dashboard">
-      <img src="images/CS340 Manage Flights.png" alt="CS340 Booking System Admin Flight Management">
-      <img src="images/CS340 Add Flight.png" alt="CS340 Booking System Admin Add Flight">
-      <img src="images/CS340 Manage Bookings.png" alt="CS340 Booking System Admin Bookings Management">
-      <img src="images/CS340 Register New Admin.png" alt="CS340 Booking System Register New Admin">
+  <!-- Artifact Screenshots -->
+  <section>
+    <h2> Artifact Screenshots</h2>
+
+    <div class="scroll-gallery">
+      <div class="gallery-item">
+        <img src="images/CS340 Home Page.png" alt="CS340 Flight Booking System Home Page">
+        <p class="caption">Landing page for non-logged in/registered users.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Login Page.png" alt="CS340 Flight Booking System Login Page">
+        <p class="caption">Login page for returning users/admins.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Sign Up Page.png" alt="CS340 Flight Booking System Sign Up Page">
+        <p class="caption">Sign Up page for new users only (not for admin registration).</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Dashboard(User).png" alt="CS340 Flight Booking System User Dashboard">
+        <p class="caption">User dashboard page with recommendations (sortable).</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 User Bookings.png" alt="CS340 Flight Booking System User Bookings">
+        <p class="caption">User booked flights.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Dashboard(Admin).png" alt="CS340 Flight Booking System Admin Dashboard">
+        <p class="caption">Admin dashboard page.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Manage Flights.png" alt="CS340 Flight Booking System Admin Flight Management">
+        <p class="caption">Admin flight management page with abiltiy to add, update, and delete flights.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Add Flight.png" alt="CS340 Flight Booking System Add Flight">
+        <p class="caption">Add a flight pop up for adding a new flight.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Manage Bookings.png" alt="CS340 Flight Booking System Admin Booking Management">
+        <p class="caption">Admin bookings management page with ability to delete bookings.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="images/CS340 Register New Admin.png" alt="CS340 Flight Booking System Register New Admin">
+        <p class="caption">New Admin registration page (Admin only).</p>
+      </div>
     </div>
   </section>
 
