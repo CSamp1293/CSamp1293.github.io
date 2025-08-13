@@ -2,21 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Software Engineering and Design</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f9f9f9;
+      margin: 0;
+      background-color: #f4f4f4;
       color: #333;
     }
-    h1, h2 {
-      color: #004080;
+
+    nav {
+      background: #007acc;
+      padding: 0.8rem;
+      text-align: center;
     }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: white;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #007acc;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #007acc;
+    }
+
     a {
-      color: #0066cc;
+      color: #007acc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="code-review.html">Code Review</a>
+    <a href="CS405.html">Software Engineering</a>
+    <a href="CS300.html">Algorithms</a>
+    <a href="CS340.html">Databases</a>
+  </nav>
+
+  <!-- Header -->
+  <header>
     <h1>Software Engineering and Design</h1>
+    <p>Enhanced C++ Encryption Tool from CS 405</p>
+  </header>
+
+  <!-- Artifact Description -->
+  <section>
+    <h2>📄 Artifact Overview</h2>
+    <p>This project originated from my CS 405: Secure Coding course. The original program was a basic C++ file encryption and decryption tool using XOR logic. For my CS 499 enhancement, I refactored it using object-oriented programming principles, improved file handling, added command-line flexibility, and implemented secure key management.</p>
+  </section>
+
+  <!-- Skills Demonstrated -->
+  <section>
+    <h2>🛠 Skills Demonstrated</h2>
+    <ul>
+      <li>Object-Oriented Programming (OOP) in C++</li>
+      <li>Secure file I/O and key handling</li>
+      <li>Refactoring for maintainability and scalability</li>
+      <li>Following secure coding best practices</li>
+    </ul>
+  </section>
+
+  <!-- GitHub Link -->
+  <section>
+    <h2>🔗 View Project</h2>
+    <p><a href="https://github.com/CSamp1293/CSamp1293.github.io/tree/main/CS499%20Enhancments/CS405%20Enhancement" target="_blank">View the Enhanced C++ Encryption Tool on GitHub</a></p>
+  </section>
+</body>
+</html>
