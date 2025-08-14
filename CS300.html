@@ -60,26 +60,64 @@
       color: #007acc;
     }
 
-    .screenshot-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-      justify-content: center;
-    }
-
-    .screenshot-gallery img {
-      flex: 1 1 calc(33% - 1rem);
-      max-width: calc(33% - 1rem);
-      height: auto;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
     a {
       color: #007acc;
       text-decoration: none;
       font-weight: bold;
+    }
+
+    .gallery-container {
+      position: relative;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 1rem;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .gallery-slide {
+      display: none;
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .caption {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 0.6rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     a:hover {
@@ -103,22 +141,30 @@
     footer a:hover {
       text-decoration: underline;
     }
-
-    @media (max-width: 1024px) {
-      .screenshot-gallery img {
-        flex: 1 1 calc(50% - 1rem);
-        max-width: calc(50% - 1rem);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .screenshot-gallery img {
-        flex: 1 1 100%;
-        max-width: 100%;
-      }
-    }
   </style>
 </head>
+
+<script>
+  let currentSlide = 0;
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    showSlide(currentSlide);
+  });
+
+  function showSlide(n) {
+    const slides = document.querySelectorAll(".gallery-slide");
+    if (n >= slides.length) currentSlide = 0;
+    if (n < 0) currentSlide = slides.length - 1;
+
+    slides.forEach(slide => slide.style.display = "none");
+    slides[currentSlide].style.display = "block";
+  }
+
+  function changeSlide(direction) {
+    currentSlide += direction;
+    showSlide(currentSlide);
+  }
+</script>
 <body>
   <!-- Navigation -->
   <nav>
@@ -139,10 +185,36 @@
   <section>
     <h2>📄 Artifact Overview</h2>
     <p>This project was originally developed for my CS 300: Data Structures and Algorithms course. The original program, written in C++, displayed courses and their prerequisites but did not resolve full prerequisite chains. For the CS 499 enhancement, I rewrote the program in Python, implementing recursive logic to trace and display the full chain of prerequisites for any course.</p>
-    
-    <div class="screenshot-gallery">
-      <img src="images/CS300Enhanced.png" alt="Screenshot of CS 300 Enhancement">
-    </div>
+  </section>
+
+  <!-- Artifact Screenshots -->
+  <section>
+    <h2>Artifact Screenshots</h2>
+
+    <div class="gallery-container">
+      <button class="prev" onClick="changeSlide(-1)">&#10094;</button>
+
+      <div class="gallery-slide">
+        <img src="images/CS300 List All Courses.png" alt="CS300 Course Scheduler List All Courses">
+        <p class="caption">Provides the user with a list of all the courses in the file.</p>
+      </div>
+
+      <div class="gallery-slide">
+        <img src="images/CS300 Search For A Course.png" alt="CS300 Course Scheduler Search For Course By ID">
+        <p class="caption">Prompts the user to enter a course by ID and returns the matching course with its prerequisites.</p>
+      </div>
+
+      <div class="gallery-slide">
+        <img src="images/CS300 Get Course Prereq Chain.png" alt="CS300 Course Scheduler Prerequisite Chain">
+        <p class="caption">Prompts the user to enter a course by ID and returns the prerequisite chain using recursive logic. </p>
+      </div>
+
+      <div class="gallery-slide">
+        <img src="images/CS300 Validation and Application Exit.png" alt="CS300 Course Scheduler Validation and Application Exit">
+        <p class="caption">If the user inputs a nonexistent option, they are prompted that their input is invalid. If a user chooses option 4, the application terminates.</p>
+      </div>
+
+      <button class="next" onClick="changeSlide(1)">&#10095;</button>
   </section>
 
   <!-- Skills Demonstrated -->
