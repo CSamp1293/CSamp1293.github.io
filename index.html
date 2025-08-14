@@ -29,22 +29,38 @@
       text-decoration: underline;
     }
 
-    header {
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
       text-align: center;
-      padding: 2rem 1rem;
-      background: white;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMtjNiXoEIcg2_50inyP-IF3Q8uDKvEjcZQ&s") center/cover no-repeat;
     }
 
-    header h1 {
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1rem;
+    }
+
+    .hero-content h1 {
       margin: 0;
       font-size: 2.2rem;
-      color: #007acc;
     }
 
-    header p {
+    .hero-content p {
       font-size: 1.1rem;
-      color: #555;
     }
 
     .about {
@@ -88,10 +104,12 @@
    </nav>
 
    <!-- Hero Section -->
-    <header>
-      <h1>Corey Sampson</h1>
-      <p>Software Engineering Student | Aspiring Full-Stack Developer</p>
-    </header>
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Corey Sampson</h1>
+        <p>Software Engineering Student | Aspiring Full-Stack Developer</p>
+      </div>
+    </div>
 
     <!-- About -->
      <section class="about">
