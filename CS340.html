@@ -29,22 +29,38 @@
       text-decoration: underline;
     }
 
-    header {
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
       text-align: center;
-      padding: 2rem 1rem;
-      background: white;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4k-8g7AYPHKQYcTul2Bm5Pn-jIUpu6Bgybg&s") center/cover no-repeat;
     }
 
-    header h1 {
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1rem;
+    }
+
+    .hero-content h1 {
       margin: 0;
-      font-size: 2rem;
-      color: #007acc;
+      font-size: 2.2rem;
     }
 
-    header p {
+    .hero-content p {
       font-size: 1.1rem;
-      color: #555;
     }
 
     section {
@@ -172,11 +188,13 @@
     <a href="CS340.html">Databases</a>
   </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>Databases</h1>
-    <p>Enhanced Airline Booking System with NoSQL and REST API from CS 340</p>
-  </header>
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Databases</h1>
+      <p>Enhanced Airline Booking System with NoSQL and REST API from CS 340</p>
+    </div>
+  </div>
 
   <!-- Artifact Description -->
   <section>
