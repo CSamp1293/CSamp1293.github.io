@@ -202,6 +202,36 @@
     <p>This artifact was originally created for my CS 340: Client/Server Development course as a SQL-based airline booking system. For the CS 499 enhancement, I migrated the backend to a NoSQL MongoDB database, implemented RESTful API endpoints using Express.js, and added JWT authentication for secure user access.</p>
   </section>
 
+  <section>
+    <h2>Databases Narrative</h2>
+
+    <p>The original artifact was a MySQL-based airline booking system developed for CS340: Client/Server Development. The application utilized a relational database to manage flights, customers, and bookings, supported by basic CRUD (Create, Read, Update, Delete) operations via a Python Flask interface. The system functioned well for fundamental operations but lacked advanced capabilities such as RESTful API design, NoSQL integration, middleware security, and robust authentication.</p>
+
+    <p>I selected this artifact for enhancement because it represents a comprehensive example of real-world database interaction and web service design. It allowed me to demonstrate my growth in backend development, specifically by transitioning from a traditional SQL database to a modern NoSQL solution using MongoDB and Mongoose. The artifact also highlights my ability to integrate middleware (i.e., JWT authentication and logging), define Mongoose schemas with validation, and build RESTful APIs using Express.js. These enhancements reflect both foundational database principles and current industry standards in backend engineering.</p>
+
+    <p>The key improvements and skills I have demonstrated include:</p>
+    <ul>
+      <li><strong>NoSQL Migration:</strong> Fully transitioned from MySQL to MongoDB using Mongoose schemas for Flights, Customers, and Bookings.</li>
+      <li><strong>RESTful API Design:</strong> All database interactions are exposed via RESTful endpoints in Express, following modular route/controller patterns.</li>
+      <li><strong>Authentication:</strong> JWT-based authentication secures booking routes, ensuring only logged-in users can create bookings.</li>
+      <li><strong>Middleware and Security:</strong> Authentication middleware and request logging demonstrate a security-aware backend structure.</li>
+      <li><strong>Advanced CRUD Features:</strong> Admin-only CRUD routes for managing flight and booking records illustrate role-based access control and data integrity practices.</li>
+      <li><strong>Full Frontend Integration:</strong> Developed a fully functioning frontend for both customer-facing and admin-facing applications, accessible on localhost:500.</li>
+      <li><strong>Language Transition:</strong> Rewrote the original Python backend entirely in JavaScript, integrating all aforementioned enhancements.</li>
+    </ul>
+
+    <p>This enhancement aligns with the planned CS499 course outcomes:</p>
+    <ul>
+      <li><strong>Applying well-founded and innovative techniques:</strong> Achieved by migrating from MySQL to MongoDB, designing Mongoose schemas, and building RESTful API endpoints with Express.js.</li>
+      <li><strong>Developing a security mindset:</strong> Implemented JWT authentication, role-based access control, protected routes, and input validation to ensure secure and reliable backend operations.</li>
+      <li><strong>Designing and delivering professional-quality solutions:</strong> Rewrote the original Python backend in JavaScript, integrated a full frontend, and applied middleware patterns, logging, and modular architecture to produce a maintainable and scalable full-stack application.</li>
+    </ul>
+
+    <p>Enhancing this project was both challenging and rewarding. Migrating from a relational schema to a document-based schema required rethinking data relationships, especially between bookings and flights. Implementing role-based functionality and token verification deepened my understanding of Express middleware patterns. Using Postman for route testing improved my ability to simulate client interactions and debug API behavior. A major challenge was ensuring data consistency for required objects, such as seat availability, involving atomic updates to flight documents and booking creation. I also had to manage user identity carefully to separate admin and user privileges until a fully functioning login/registration system was implemented.</p>
+
+    <p>Overall, this project enhancement represents a significant leap in both backend and full-stack development skills. On the backend, I gained valuable experience in NoSQL architecture and API security, reflecting my readiness for professional software development roles.</p>
+  </section>
+
   <!-- Artifact Screenshots -->
   <section>
     <h2>📸 Artifact Screenshots</h2>
