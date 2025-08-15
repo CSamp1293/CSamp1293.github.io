@@ -1,1 +1,16 @@
-# CSamp1293.github.io
+# Professional Self-Assessment
+
+Throughout my Bachelor of Science in Computer Science program at Southern New Hampshire University, I have developed a strong foundation in software engineering, algorithms, databases, and secure coding practices. This ePortfolio serves as both a reflection of my journey and a showcase of the technical, collaborative, and problem-solving skills I have gained and applied to real-world projects.
+
+As an online student, my progress has been driven by self-motivation, time management, and the ability to research, learn, and apply new concepts independently. In each course, I focused on producing professional-quality work by thoroughly planning, documenting, and refining my code to meet both functional and usability requirements. I have also gained experience in presenting technical concepts clearly through written explanations, enhancement plans, and project narratives, ensuring my work is accessible to both technical and non-technical audiences.
+
+One of my key areas of growth has been in software engineering and design. In my CS 405 enhancement project, I refactored a C++ encryption tool to adhere to object-oriented principles, implemented robust input validation, and added logging for improved maintainability and debugging. This work demonstrated my ability to design scalable, modular solutions and to anticipate potential misuse or vulnerabilities before they occur.
+
+In algorithms and data structures, my CS 300 enhancement challenged me to approach problem-solving with efficiency in mind. I rewrote a course scheduling program in Python, replacing the original implementation with a recursive algorithm that can fully resolve prerequisite chains for courses. This not only improved the program's accuracy but also reinforced my ability to apply algorithmic principles to real-world scheduling and dependency problems.
+
+My database enhancement in CS 340 pushed my full-stack development skills forward. I migrated an airline booking system from a SQL-based backend to MongoDB, implemented RESTful API endpoints using Node.js and Express, and secured the application with JWT-based authentication. This project reflected my ability to select the right tools for the job, design secure data flows, and deliver a complete full-stack solution that meets industry expectations for performance and security.
+
+Security has been a continuous thread throughout my coursework. I have learned to develop with a security-first mindset, anticipating adversarial exploits and mitigating vulnerabilities through secure coding, input sanitization, authentication, and role-based access control. These skills have been critical in ensuring my solutions are not only functional but also resilient against common security threats.
+The artifacts in this portfolio collectively represent my ability to design, develop, and deliver professional-quality computing solutions that are both technically sound and user-focused. They also illustrate my capacity to learn new technologies quickly, adapt to changing requirements, and balance trade-offs in design choices.
+
+As I move forward in my career aspirations, my goal is to continue building on this foundation, pursuing opportunities in full-stack development, secure software design, and database-driven application development. I believe the combination of my technical expertise, independent work ethic, and dedication to continuous improvement will enable me to deliver meaningful value to any organization.
