@@ -205,6 +205,25 @@
     <p>This project was originally developed for my CS 300: Data Structures and Algorithms course. The original program, written in C++, displayed courses and their prerequisites but did not resolve full prerequisite chains. For the CS 499 enhancement, I rewrote the program in Python, implementing recursive logic to trace and display the full chain of prerequisites for any course.</p>
   </section>
 
+  <section>
+    <h2>Algorithms and Data Structures Narrative</h2>
+
+    <p>The original artifact I selected was a course scheduling program written in C++ as part of the CS 300: Data Structures and Algorithms course. It was developed to load a list of college courses from a text file and allow the user to view available courses or search for a specific course. The initial implementation utilized vectors and basic string parsing to load data; however, it lacked modularity and did not support viewing recursive prerequisite chains.</p>
+
+    <p>I selected this artifact for enhancement because it represents foundational knowledge of algorithmic and data structures that is critical to my development as a software engineer. The original implementation demonstrated basic file input, data storage in a vector, and conditional logic. However, it was limited in structure and functionality. To better align with real-world expectations and course outcomes, I enhanced the project by rewriting it in Python. I designed a <strong>Course</strong> class to encapsulate course data, including IDs, names, and a list of prerequisite IDs. I used a dictionary data structure for efficient key-based access to courses and implemented a recursive algorithm <strong>(resolve_prerequisites)</strong> that traces prerequisite chains for any given course.</p>
+
+    <p>This enhancement shows my ability to apply object-oriented design for modular, maintainable code, choose appropriate data structures (dictionary over vector) for efficiency, implement recursive algorithms for depth-first traversal of dependencies, and perform input validation and handle file-related exceptions. The enhanced project is not only more readable and scalable but also includes a user-friendly menu and additional logic to prevent infinite looping caused by circular dependencies.</p>
+
+    <p>This enhancement aligns with the planned CS499 course outcomes:</p>
+    <ul>
+      <li><strong>Applying well-founded and innovative techniques:</strong> Achieved by evaluating the limitations of the original solution, implementing a recursive prerequisite resolution algorithm, and leveraging Python dictionaries for efficiency.</li>
+      <li><strong>Developing a security and defensive mindset:</strong> Incorporated input validation and file access error handling, reflecting secure and defensive coding practices even in a non-security-focused project.</li>
+      <li><strong>Designing and delivering professional-quality solutions:</strong> Rewrote the procedural C++ program into a modular, object-oriented Python application with clean code structure, clear documentation, and user-friendly interaction.</li>
+    </ul>
+
+    <p>Enhancing this artifact provided me with a valuable opportunity to revisit algorithmic design in a different language context. While the logic itself remained straightforward, I learned how to better separate concerns using object-oriented design and how to leverage Python’s built-in features to streamline development. I also gained confidence in working in VS Code with Python for the first time, which expanded my comfort zone beyond Visual Studio and C++. One of the biggest challenges I faced was ensuring that the recursive function to trace prerequisites handled edge cases like nonexistent course IDs or circular prerequisites, without crashing. Another challenge was rethinking the program structure from a procedural C++ implementation to a modular Python program with clean, readable code and helpful inline comments and docstrings. Through this process, I became more aware of how thoughtful data structure choices (like using a dictionary instead of a vector) can significantly improve the performance and usability of a program. The experience reinforced the importance of clear documentation, good code structure, and error handling, which are key skills in professional software development.</p>
+  </section>
+
   <!-- Artifact Screenshots -->
   <section>
     <h2>📸 Artifact Screenshots</h2>
