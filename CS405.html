@@ -201,6 +201,28 @@
     <p>This project originated from my CS 405: Secure Coding course. The original program was a basic C++ file encryption and decryption tool using XOR logic. For my CS 499 enhancement, I refactored it using object-oriented programming principles, improved file handling, added command-line flexibility, and implemented secure key management.</p>
   </section>
 
+  <section>
+    <h2>Software Engineering and Design Narrative</h2>
+    <p>The artifact I selected for the enhancement is a C++ unit testing project titled <em>“SecurityPolicyUnitTests”</em>, originally developed in the CS 405 Secure Coding course. This project focused on writing unit tests to verify secure coding practices, including memory safety, string manipulation, SQL injection prevention, and cryptographic logic placeholders. It was originally created using Microsoft Visual Studio and utilized the CppUnitTestFramework. The code tested individual functions related to secure programming but lacked runtime interaction, file I/O, or a modular design architecture.</p>
+
+    <p>I selected this artifact for my ePortfolio because it presented a strong opportunity to demonstrate skills in object-oriented design, secure file handling, and modular software development. While the original project effectively tested small secure code functions, it did not implement or simulate a full application workflow. To enhance the artifact, I restructured the project into a working console-based encryption application in C++. I created and implemented three primary classes:</p>
+    <ul>
+      <li><strong>Encryptor:</strong> Handles encryption logic (XOR and simulated AES).</li>
+      <li><strong>FileManager:</strong> Performs secure file input/output operations.</li>
+      <li><strong>Logger:</strong> Logs operations and errors.</li>
+    </ul>
+    <p>In addition to these classes, I implemented an interactive user menu to select Encrypt, Decrypt, or Exit the program, input validation (handling empty keys and invalid file paths), exception handling for runtime safety, and a simulated AES encryption stub to demonstrate extensibility. This enhanced version is now a complete software tool that reflects professional-level design and demonstrates readiness for real-world software development.</p>
+
+    <p>This enhancement aligns with three CS 499 course outcomes:</p>
+    <ul>
+      <li>Using well-founded and innovative techniques, skills, and tools in computing practices, demonstrated through object-oriented principles and modular class design.</li>
+      <li>Developing a security mindset that anticipates adversarial exploits by validating user input, handling errors securely, and designing extensible encryption methods.</li>
+      <li>Designing, developing, and delivering a professional-quality technical solution with a clean, modular project including user interaction, testability, and logging.</li>
+    </ul>
+
+    <p>Enhancing this project taught me the value of clean architecture, code reuse, and real-world extensibility. I practiced separating concerns into logical classes, maintaining readable and maintainable code, and simulating scalable components as seen in the AES encryption stub. One major challenge was troubleshooting Visual Studio build errors, particularly precompiled header issues and duplicate <code>main()</code> symbol errors, after restructuring. I also resolved file path bugs and ensured the program could read and write reliably on Windows. Despite these technical hurdles, I successfully completed the enhancement while learning how to design software that is robust, extensible, and secure. This experience directly prepared me to apply professional standards and practices in future software engineering roles.</p>
+  </section>
+
   <!-- Artifact Screenshots -->
   <section>
     <h2>📸 Artifact Screenshots</h2>
